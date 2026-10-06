@@ -6,20 +6,20 @@
 [![Luau](https://img.shields.io/badge/Language-Luau%20%7C%20Type--Strict-00A2FF?style=for-the-badge&logo=roblox&logoColor=white)](https://luau-lang.org/)
 [![Paradigm](https://img.shields.io/badge/Paradigm-Metatable%20OOP-10B981?style=for-the-badge)](https://roblox.com)
 [![Network](https://img.shields.io/badge/Networking-Binary%20Buffer%20Protocol-8B5CF6?style=for-the-badge)](https://create.roblox.com/docs/reference/engine/libraries/buffer)
-[![Status](https://img.shields.io/badge/Hidden%20Devs-Available%20for%20Hire-F59E0B?style=for-the-badge)](https://discord.gg/hiddendevs)
+[![Status](https://img.shields.io/badge/Status-Available%20for%20Contracts-1E293B?style=for-the-badge)](https://pinpinfolio.vercel.app/)
 
 <p align="center">
   <b>Production-grade systems, clean decoupled architecture, and optimized binary networking.</b><br>
   Focused on scalable backends, low-latency client-server synchronization, and structured OOP codebases for high-traffic Roblox titles.
 </p>
 
-[Architecture & Hierarchy](#-project-architecture--clean-hierarchy) • [Binary Buffer Networking](#-binary-buffer-networking-oop) • [In-Engine Gameplay](#-in-engine-gameplay--systems) • [Code Standards](#-code-quality--security-standards) • [Contact](#-contact--references)
+[Architecture & Hierarchy](#project-architecture--clean-hierarchy) • [Binary Buffer Networking](#binary-buffer-networking-oop) • [In-Engine Gameplay](#in-engine-gameplay--systems) • [Code Standards](#code-quality--security-standards) • [Contact](#contact--references)
 
 ---
 
 </div>
 
-## 📌 Executive Summary
+## Executive Summary
 
 - **Object-Oriented Programming (OOP)** : Strict metatable encapsulation with nominal types (`--!strict`), explicit memory cleanup (`:Destroy()`), and state-driven lifecycle management.
 - **Binary Network Serialization** : In-house packet serializer using Luau's native `buffer` API — achieving over **70% bandwidth reduction** compared to standard `RemoteEvent` data replication.
@@ -28,7 +28,7 @@
 
 ---
 
-## 📂 Project Architecture & Clean Hierarchy
+## Project Architecture & Clean Hierarchy
 
 A clean, predictable project structure is paramount for team collaboration and long-term maintainability. Below is the production directory layout used across current projects:
 
@@ -63,7 +63,7 @@ ReplicatedStorage/
 
 ---
 
-## ⚡ Binary Buffer Networking (OOP)
+## Binary Buffer Networking (OOP)
 
 To minimize network throttling and server tick latency on high-frequency replication (such as projectile hits, directional vectors, and rapid player actions), communications bypass raw table remotes in favor of compacted binary byte streams.
 
@@ -279,7 +279,7 @@ return BufferWriter
 
 ---
 
-## 🎮 In-Engine Gameplay & Systems
+## In-Engine Gameplay & Systems
 
 Here are live captures from active development in Roblox Studio demonstrating combat mechanics, character control, responsiveness, and state machines:
 
@@ -290,20 +290,17 @@ Here are live captures from active development in Roblox Studio demonstrating co
 
 ---
 
-## 🛡️ Code Quality & Security Standards
+## Code Quality & Security Standards
 
 - **Server-Authoritative Validation** : All client inputs are treated as untrusted requests. Velocity sanity checks, distance verifications, and cooldown validations occur exclusively on the server before mutating state.
-- **Strict Memory Management** : All OOP classes instantiate Maid/Janitor cleanup routines to disconnect events, destroy instances, and prevent memory leaks.
-- **Type Safety (`--!strict`)** : Comprehensive type contracts prevent runtime `nil` errors and provide autocomplete within the Luau LSP.
+- **Strict Memory Management** : All OOP classes instantiate cleanup routines to disconnect events, destroy instances, and prevent memory leaks.
+- **Type Safety (`--!strict`)** : Comprehensive type contracts prevent runtime errors and provide autocomplete within the Luau LSP.
 - **Packet Overhead Reduction** : Converting standard Roblox tables into packed byte streams reduces remote packet sizes from hundreds of bytes down to single-digit bytes.
 
 ---
 
-## 📬 Contact & References
+## Contact & References
 
-Looking for an experienced Systems Engineer for your next major Roblox project?
-
-- **Hidden Devs** : DM directly on Discord
 - **Portfolio Website** : [pinpinfolio.vercel.app](https://pinpinfolio.vercel.app/)
 - **Specialties** : Custom Networking, Combat Frameworks, Inventory Systems, OOP Infrastructure, Game Performance Optimization.
 
