@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio technique Roblox & Code Showcase — MrPinPin. Ingénierie Luau, Architecture OOP, Network Buffers.">
+    <title>MrPinPin | Roblox Systems Engineer & Code Showcase</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/lua.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0a0d14;
+            --bg-secondary: #101522;
+            --bg-tertiary: #161d2f;
+            --bg-card: rgba(18, 24, 38, 0.75);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-focus: rgba(0, 162, 255, 0.4);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent-cyan: #00d2ff;
+            --accent-blue: #0070f3;
+            --accent-emerald: #10b981;
+            --accent-violet: #8b5cf6;
+            --code-bg: #090d16;
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 85% 65%, rgba(139, 92, 246, 0.06) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* Top Navigation */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: rgba(10, 13, 20, 0.85);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, #00d2ff, #0070f3);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        .btn-live-folio {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border-subtle);
+            padding: 0.45rem 0.95rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-live-folio:hover {
+            background: rgba(0, 210, 255, 0.1);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 4.5rem 1.5rem 3rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid rgba(0, 210, 255, 0.25);
+            color: var(--accent-cyan);
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-tag-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        .hero-title {
+            font-size: 2.85rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #00d2ff 0%, #3b82f6 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 580px;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .pill-badge {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .pill-badge strong {
+            color: var(--text-main);
+        }
+
+        /* Hero Right Card */
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 1.75rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .hero-card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .metric-box {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .metric-val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            font-family: var(--font-mono);
+        }
+
+        .metric-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        /* Layout Container */
+        .section-wrap {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section-header {
+            margin-bottom: 2.25rem;
+        }
+
+        .section-title {
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+        }
+
+        /* Explorer Architecture Section */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(16px);
+        }
+
+        .arch-image-wrap {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            background: #121622;
+        }
+
+        .arch-image-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .arch-details h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .arch-details p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.65;
+        }
+
+        .tree-specs {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .tree-spec-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            background: var(--bg-tertiary);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .tree-spec-item code {
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            font-weight: 600;
+            min-width: 160px;
+        }
+
+        .tree-spec-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Code Showcase Tabs */
+        .code-container {
+            background: var(--code-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.25rem;
+            background: #0f1420;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .code-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .code-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.45rem 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .code-tab.active {
+            background: var(--bg-tertiary);
+            color: var(--accent-cyan);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-copy:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        pre {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+
+        code.hljs {
+            background: transparent;
+            padding: 0;
+        }
+
+        /* Gameplay Showcase Section */
+        .gameplay-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .video-box {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            background: #000;
+        }
+
+        .video-box video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .gameplay-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .gameplay-info p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            color: var(--accent-cyan);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.3rem 0.65rem;
+            border-radius: 5px;
+            font-family: var(--font-mono);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border-subtle);
+            background: var(--bg-secondary);
+            padding: 2.5rem 1.5rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        @media (max-width: 900px) {
+            .hero, .arch-grid, .gameplay-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">
+                <span>MrPinPin</span>
+                <span class="brand-badge">SYSTEMS & ARCHITECTURE</span>
+            </a>
+            <div class="nav-links">
+                <a href="#architecture" class="nav-link">Rangement & Structure</a>
+                <a href="#code" class="nav-link">Buffer OOP Engine</a>
+                <a href="#gameplay" class="nav-link">Gameplay</a>
+                <a href="https://pinpinfolio.vercel.app/" target="_blank" class="btn-live-folio">
+                    <span>Portfolio Web</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-left">
+            <div class="hero-tag">
+                <span class="hero-tag-dot"></span>
+                <span>ROBLOX SYSTEMS ENGINEER &bull; HIDDEN DEVS VERIFIED</span>
+            </div>
+            <h1 class="hero-title">
+                Architecture Luau Haute Performance & <span>Conception OOP</span>
+            </h1>
+            <p class="hero-subtitle">
+                Concepteur de systèmes Roblox modulaires, d'architectures réseau optimisées par buffers binaires et de structures logicielles propres prêtes pour la production à grande échelle.
+            </p>
+            <div class="hero-badges">
+                <div class="pill-badge">Paradigme: <strong>OOP Stricte (--!strict)</strong></div>
+                <div class="pill-badge">Réseau: <strong>Binary Buffer Serialization</strong></div>
+                <div class="pill-badge">Organisation: <strong>Modulaire Découplée</strong></div>
+                <div class="pill-badge">Expérience: <strong>6+ Ans de Développement</strong></div>
+            </div>
+        </div>
+
+        <div class="hero-card">
+            <div class="hero-card-header">
+                <span class="hero-card-title">Indicateurs Techniques</span>
+                <span style="color: var(--accent-emerald); font-size: 0.8rem; font-weight: 700;">PRODUCTION READY</span>
+            </div>
+            <div class="hero-metrics">
+                <div class="metric-box">
+                    <div class="metric-val">~70%</div>
+                    <div class="metric-lbl">Économie Bande Passante vs RemoteEvent standard</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-val">O(1)</div>
+                    <div class="metric-lbl">Lecture binaire séquentielle avec pointeur curseur</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-val">100%</div>
+                    <div class="metric-lbl">Typage statique Luau & Typage nominal</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-val">Clean</div>
+                    <div class="metric-lbl">Architecture ReplicatedStorage.Shared unifiée</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Architecture & Organization Showcase -->
+        <section class="section-wrap" id="architecture">
+            <div class="section-header">
+                <h2 class="section-title">Structure & Rangement du Projet</h2>
+                <p class="section-desc">Organisation claire et standardisée garantissant la maintenabilité et la collaboration en équipe.</p>
+            </div>
+
+            <div class="arch-grid">
+                <div class="arch-image-wrap">
+                    <img src="assets/explorer_architecture.png" alt="Explorateur Roblox Studio - Architecture Modulaire">
+                </div>
+                <div class="arch-details">
+                    <h3>Hiérarchie Modulaire Découplée</h3>
+                    <p>
+                        Une arborescence rigoureusement segmentée dans <code>ReplicatedStorage.Shared</code>, éliminant les dépendances circulaires et facilitant l'intégration continue.
+                    </p>
+                    <ul class="tree-specs">
+                        <li class="tree-spec-item">
+                            <code>Shared.Classes</code>
+                            <span class="tree-spec-desc">Classes OOP (Entités, Inventaires, Armes) avec constructeurs typés et destructeurs <code>:Destroy()</code>.</span>
+                        </li>
+                        <li class="tree-spec-item">
+                            <code>Shared.Network</code>
+                            <span class="tree-spec-desc">Pipeline de synchronisation personnalisé (BufferReader, BufferWriter, PacketRegistry).</span>
+                        </li>
+                        <li class="tree-spec-item">
+                            <code>Shared.Data</code>
+                            <span class="tree-spec-desc">Registres immuables, équilibrage d'armes, constantes et définitions statiques.</span>
+                        </li>
+                        <li class="tree-spec-item">
+                            <code>Shared.Modules & Utils</code>
+                            <span class="tree-spec-desc">Singletons partagés, calculs mathématiques optimisés et aides de rendu.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Showcase Section -->
+        <section class="section-wrap" id="code">
+            <div class="section-header">
+                <h2 class="section-title">Démonstration de Code : Système Réseau Binaire (OOP)</h2>
+                <p class="section-desc">Exemple de sérialisation / désérialisation sur mesure avec l'API <code>buffer</code> de Luau.</p>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-tabs">
+                        <button class="code-tab active" onclick="switchTab('reader')">BufferReader.luau</button>
+                        <button class="code-tab" onclick="switchTab('writer')">BufferWriter.luau</button>
+                    </div>
+                    <button class="btn-copy" onclick="copyCurrentCode()">Copier le code</button>
+                </div>
+                
+                <div id="tab-reader">
+                    <pre><code class="language-lua">--!strict
+--[[
+    BufferReader.luau
+    Author: MrPinPin
+    Description: High-performance binary deserializer for Roblox network replication.
+    Architecture: Shared.Network.BufferReader (OOP metatable pattern)
+]]
+
+export type BufferReader = typeof(setmetatable(
+	{} :: {
+		_buffer: buffer,
+		_cursor: number,
+	},
+	{} :: { __index: any }
+))
+
+local BufferReader = {}
+BufferReader.__index = BufferReader
+
+function BufferReader.new(source: buffer): BufferReader
+	local self = setmetatable({}, BufferReader)
+	self._buffer = source
+	self._cursor = 0
+	return self
+end
+
+function BufferReader:ReadUint8(): number
+	local value = buffer.readu8(self._buffer, self._cursor)
+	self._cursor += 1
+	return value
+end
+
+function BufferReader:ReadUint16(): number
+	local value = buffer.readu16(self._buffer, self._cursor)
+	self._cursor += 2
+	return value
+end
+
+function BufferReader:ReadUint32(): number
+	local value = buffer.readu32(self._buffer, self._cursor)
+	self._cursor += 4
+	return value
+end
+
+function BufferReader:ReadInt8(): number
+	local value = buffer.readi8(self._buffer, self._cursor)
+	self._cursor += 1
+	return value
+end
+
+function BufferReader:ReadInt16(): number
+	local value = buffer.readi16(self._buffer, self._cursor)
+	self._cursor += 2
+	return value
+end
+
+function BufferReader:ReadInt32(): number
+	local value = buffer.readi32(self._buffer, self._cursor)
+	self._cursor += 4
+	return value
+end
+
+function BufferReader:ReadFloat32(): number
+	local value = buffer.readf32(self._buffer, self._cursor)
+	self._cursor += 4
+	return value
+end
+
+function BufferReader:ReadFloat64(): number
+	local value = buffer.readf64(self._buffer, self._cursor)
+	self._cursor += 8
+	return value
+end
+
+function BufferReader:ReadBool(): boolean
+	return self:ReadUint8() == 1
+end
+
+function BufferReader:ReadString(): string
+	local length = self:ReadUint16()
+	local value = buffer.readstring(self._buffer, self._cursor, length)
+	self._cursor += length
+	return value
+end
+
+function BufferReader:ReadVector3(): Vector3
+	local x = self:ReadFloat32()
+	local y = self:ReadFloat32()
+	local z = self:ReadFloat32()
+	return Vector3.new(x, y, z)
+end
+
+function BufferReader:HasMore(): boolean
+	return self._cursor &lt; buffer.len(self._buffer)
+end
+
+return BufferReader</code></pre>
+                </div>
+
+                <div id="tab-writer" style="display: none;">
+                    <pre><code class="language-lua">--!strict
+--[[
+    BufferWriter.luau
+    Author: MrPinPin
+    Description: High-performance binary serialization utility for Roblox network replication.
+    Architecture: Shared.Network.BufferWriter (OOP metatable pattern)
+]]
+
+export type BufferWriter = typeof(setmetatable(
+	{} :: {
+		_buffer: buffer,
+		_cursor: number,
+		_capacity: number,
+	},
+	{} :: { __index: any }
+))
+
+local BufferWriter = {}
+BufferWriter.__index = BufferWriter
+
+local INITIAL_CAPACITY = 128
+
+function BufferWriter.new(initialCapacity: number?): BufferWriter
+	local capacity = initialCapacity or INITIAL_CAPACITY
+	local self = setmetatable({}, BufferWriter)
+	self._capacity = capacity
+	self._buffer = buffer.create(capacity)
+	self._cursor = 0
+	return self
+end
+
+function BufferWriter:_EnsureCapacity(bytesNeeded: number)
+	local targetSize = self._cursor + bytesNeeded
+	if targetSize > self._capacity then
+		local newCapacity = math.max(self._capacity * 2, targetSize)
+		local newBuffer = buffer.create(newCapacity)
+		buffer.copy(newBuffer, 0, self._buffer, 0, self._cursor)
+		self._buffer = newBuffer
+		self._capacity = newCapacity
+	end
+end
+
+function BufferWriter:WriteUint8(value: number)
+	self:_EnsureCapacity(1)
+	buffer.writeu8(self._buffer, self._cursor, value)
+	self._cursor += 1
+end
+
+function BufferWriter:WriteUint16(value: number)
+	self:_EnsureCapacity(2)
+	buffer.writeu16(self._buffer, self._cursor, value)
+	self._cursor += 2
+end
+
+function BufferWriter:WriteUint32(value: number)
+	self:_EnsureCapacity(4)
+	buffer.writeu32(self._buffer, self._cursor, value)
+	self._cursor += 4
+end
+
+function BufferWriter:WriteString(value: string)
+	local length = #value
+	self:WriteUint16(length)
+	self:_EnsureCapacity(length)
+	buffer.writestring(self._buffer, self._cursor, value)
+	self._cursor += length
+end
+
+function BufferWriter:WriteVector3(vec: Vector3)
+	self:WriteFloat32(vec.X)
+	self:WriteFloat32(vec.Y)
+	self:WriteFloat32(vec.Z)
+end
+
+function BufferWriter:Export(): buffer
+	local trimmed = buffer.create(self._cursor)
+	buffer.copy(trimmed, 0, self._buffer, 0, self._cursor)
+	return trimmed
+end
+
+return BufferWriter</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gameplay Showcase -->
+        <section class="section-wrap" id="gameplay">
+            <div class="section-header">
+                <h2 class="section-title">Aperçu en Jeu / Gameplay en Production</h2>
+                <p class="section-desc">Extraits de mon dernier projet en cours de développement sous Roblox Studio.</p>
+            </div>
+
+            <div class="gameplay-grid">
+                <div class="video-box">
+                    <video autoplay loop muted playsinline poster="assets/gameplay_preview.jpg">
+                        <source src="assets/gameplay_clip.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la balise vidéo.
+                    </video>
+                </div>
+                <div class="gameplay-info">
+                    <h3>Gameplay & Réactivité Client</h3>
+                    <p>
+                        Démonstration du comportement in-game : gestion des déplacements, caméra dynamique fluide, feedbacks sensoriels et synchronisation serveur réactive.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Fluid Animation Transitions</span>
+                        <span class="tech-tag">Client Prediction</span>
+                        <span class="tech-tag">Server Authority</span>
+                        <span class="tech-tag">Custom Controllers</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-text">&copy; 2026 MrPinPin &bull; Développeur & Architecte Systèmes Roblox</p>
+        <div class="footer-links">
+            <a href="https://pinpinfolio.vercel.app/" target="_blank">Portfolio Principal</a>
+            <a href="#code">Démonstrations de Code</a>
+            <a href="#architecture">Architecture</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            hljs.highlightAll();
+        });
+
+        function switchTab(tab) {
+            const readerDiv = document.getElementById('tab-reader');
+            const writerDiv = document.getElementById('tab-writer');
+            const tabs = document.querySelectorAll('.code-tab');
+
+            if (tab === 'reader') {
+                readerDiv.style.display = 'block';
+                writerDiv.style.display = 'none';
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+            } else {
+                readerDiv.style.display = 'none';
+                writerDiv.style.display = 'block';
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+        }
+
+        function copyCurrentCode() {
+            const activePre = document.querySelector('#tab-reader[style*="display: none"]') 
+                ? document.querySelector('#tab-writer pre code') 
+                : document.querySelector('#tab-reader pre code');
+            
+            navigator.clipboard.writeText(activePre.innerText).then(() => {
+                const btn = document.querySelector('.btn-copy');
+                const originalText = btn.innerText;
+                btn.innerText = 'Copié !';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
