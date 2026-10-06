@@ -1,10 +1,4 @@
 --!strict
---[[
-    BufferReader.luau
-    Author: MrPinPin
-    Description: High-performance binary deserializer for Roblox network replication.
-    Architecture: Shared.Network.BufferReader (OOP metatable pattern)
-]]
 
 export type BufferReader = typeof(setmetatable(
 	{} :: {

@@ -71,12 +71,6 @@ To minimize network throttling and server tick latency on high-frequency replica
 
 ```lua
 --!strict
---[[
-    BufferReader.luau
-    Author: MrPinPin
-    Description: High-performance binary deserializer for Roblox network replication.
-    Architecture: Shared.Network.BufferReader (OOP metatable pattern)
-]]
 
 export type BufferReader = typeof(setmetatable(
 	{} :: {
@@ -173,12 +167,6 @@ return BufferReader
 
 ```lua
 --!strict
---[[
-    BufferWriter.luau
-    Author: MrPinPin
-    Description: Dynamic binary serializer with automatic capacity expansion.
-    Architecture: Shared.Network.BufferWriter (OOP metatable pattern)
-]]
 
 export type BufferWriter = typeof(setmetatable(
 	{} :: {
@@ -230,6 +218,40 @@ function BufferWriter:WriteUint32(value: number)
 	self:_EnsureCapacity(4)
 	buffer.writeu32(self._buffer, self._cursor, value)
 	self._cursor += 4
+end
+
+function BufferWriter:WriteInt8(value: number)
+	self:_EnsureCapacity(1)
+	buffer.writei8(self._buffer, self._cursor, value)
+	self._cursor += 1
+end
+
+function BufferWriter:WriteInt16(value: number)
+	self:_EnsureCapacity(2)
+	buffer.writei16(self._buffer, self._cursor, value)
+	self._cursor += 2
+end
+
+function BufferWriter:WriteInt32(value: number)
+	self:_EnsureCapacity(4)
+	buffer.writei32(self._buffer, self._cursor, value)
+	self._cursor += 4
+end
+
+function BufferWriter:WriteFloat32(value: number)
+	self:_EnsureCapacity(4)
+	buffer.writef32(self._buffer, self._cursor, value)
+	self._cursor += 4
+end
+
+function BufferWriter:WriteFloat64(value: number)
+	self:_EnsureCapacity(8)
+	buffer.writef64(self._buffer, self._cursor, value)
+	self._cursor += 8
+end
+
+function BufferWriter:WriteBool(value: boolean)
+	self:WriteUint8(if value then 1 else 0)
 end
 
 function BufferWriter:WriteString(value: string)

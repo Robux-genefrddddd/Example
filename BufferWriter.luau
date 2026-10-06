@@ -1,10 +1,4 @@
 --!strict
---[[
-    BufferWriter.luau
-    Author: MrPinPin
-    Description: High-performance binary serialization utility for Roblox network replication.
-    Architecture: Shared.Network.BufferWriter (OOP metatable pattern)
-]]
 
 export type BufferWriter = typeof(setmetatable(
 	{} :: {
